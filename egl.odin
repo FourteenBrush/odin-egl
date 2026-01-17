@@ -22,18 +22,6 @@ Surface :: distinct rawptr
 Context :: distinct rawptr
 
 ALPHA_SIZE                    :: 0x3021
-BAD_ACCESS                    :: 0x3002
-BAD_ALLOC                     :: 0x3003
-BAD_ATTRIBUTE                 :: 0x3004
-BAD_CONFIG                    :: 0x3005
-BAD_CONTEXT                   :: 0x3006
-BAD_CURRENT_SURFACE           :: 0x3007
-BAD_DISPLAY                   :: 0x3008
-BAD_MATCH                     :: 0x3009
-BAD_NATIVE_PIXMAP             :: 0x300A
-BAD_NATIVE_WINDOW             :: 0x300B
-BAD_PARAMETER                 :: 0x300C
-BAD_SURFACE                   :: 0x300D
 BLUE_SIZE                     :: 0x3022
 BUFFER_SIZE                   :: 0x3020
 CONFIG_CAVEAT                 :: 0x3027
@@ -54,7 +42,6 @@ NATIVE_VISUAL_ID              :: 0x302E
 NATIVE_VISUAL_TYPE            :: 0x302F
 NONE                          :: 0x3038
 NON_CONFORMANT_CONFIG         :: 0x3051
-NOT_INITIALIZED               :: 0x3001
 PBUFFER_BIT                   :: 0x0001
 PIXMAP_BIT                    :: 0x0002
 READ                          :: 0x305A
@@ -63,7 +50,6 @@ SAMPLES                       :: 0x3031
 SAMPLE_BUFFERS                :: 0x3032
 SLOW_CONFIG                   :: 0x3050
 STENCIL_SIZE                  :: 0x3026
-SUCCESS                       :: 0x3000
 SURFACE_TYPE                  :: 0x3033
 TRANSPARENT_BLUE_VALUE        :: 0x3035
 TRANSPARENT_GREEN_VALUE       :: 0x3036
@@ -90,7 +76,6 @@ foreign lib {
 	GetCurrentDisplay    :: proc() -> Display ---
 	GetCurrentSurface    :: proc(readdraw: int) -> Surface ---
 	GetDisplay           :: proc(display_id: NativeDisplayType) -> Display ---
-	GetError             :: proc() -> int ---
 	GetProcAddress       :: proc(procname: cstring) -> rawptr ---
 	Initialize           :: proc(dpy: Display, major: ^int, minor: ^int) -> b32 ---
 	MakeCurrent          :: proc(dpy: Display, draw: Surface, read: Surface, ctx: Context) -> b32 ---
@@ -107,7 +92,6 @@ VERSION_1_1          :: 1
 BACK_BUFFER                   :: 0x3084
 BIND_TO_TEXTURE_RGB           :: 0x3039
 BIND_TO_TEXTURE_RGBA          :: 0x303A
-CONTEXT_LOST                  :: 0x300E
 MIN_SWAP_INTERVAL             :: 0x303B
 MAX_SWAP_INTERVAL             :: 0x303C
 MIPMAP_TEXTURE                :: 0x3082
@@ -259,20 +243,3 @@ foreign lib {
 	WaitSync                    :: proc(dpy: Display, sync: Sync, flags: int) -> b32 ---
 }
 
-// Used by vendor:OpenGL
-gl_set_proc_address :: proc(p: rawptr, name: cstring) {
-    (^rawptr)(p)^ = GetProcAddress(name)
-}
-
-// #assert(size_of(int) == size_of(i32)) /* for EGLint */
-
-// Handle values from EGL_CAST, somehow ignored by bindgen
-
-DONT_CARE  :: -1
-NO_CONTEXT :: 0
-NO_DISPLAY :: 0
-NO_SURFACE :: 0
-UNKNOWN :: -1
-DEFAULT_DISPLAY :: NativeDisplayType(uintptr(0))
-NO_SYNC :: 0
-NO_IMAGE :: 0

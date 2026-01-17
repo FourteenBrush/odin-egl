@@ -68,6 +68,25 @@ remove = [
 
     "__egl_h_",
 
+    // error constants, replaced with enum
+    "EGL_SUCCESS",
+    "EGL_NOT_INITIALIZED",
+    "EGL_BAD_ACCESS",
+    "EGL_BAD_ALLOC",
+    "EGL_BAD_ATTRIBUTE",
+    "EGL_BAD_CONFIG",
+    "EGL_BAD_CONTEXT",
+    "EGL_BAD_CURRENT_SURFACE",
+    "EGL_BAD_DISPLAY",
+    "EGL_BAD_MATCH",
+    "EGL_BAD_NATIVE_PIXMAP",
+    "EGL_BAD_NATIVE_WINDOW",
+    "EGL_BAD_PARAMETER",
+    "EGL_BAD_SURFACE",
+    "EGL_CONTEXT_LOST",
+    // redefine return type ourselves
+    "eglGetError",
+
     // loader stuff, function pointer types seem unneeded as type_of(egl.GetError)
     // seems more enjoyable to write than egl.PFNEGLGETERRORPROC.
     "__eglMustCastToProperFunctionPointerType",
