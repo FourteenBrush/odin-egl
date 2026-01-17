@@ -1,0 +1,118 @@
+inputs = [
+    "include"
+]
+
+// output to root of repo
+output_folder = "."
+
+imports_file = "imports.inc"
+
+remove_type_prefix = "EGL"
+remove_macro_prefix = "EGL_"
+remove_function_prefix = "egl"
+
+package_name = "egl"
+
+type_overrides = {
+    "EGLAttrib" = "distinct int",
+    "EGLDisplay" = "distinct rawptr",
+    "EGLConfig" = "distinct rawptr",
+    "EGLSurface" = "distinct rawptr",
+    "EGLContext" = "distinct rawptr",
+    "EGLClientBuffer" = "distinct rawptr",
+    "EGLSync" = "distinct rawptr",
+    "EGLImage" = "distinct rawptr",
+    "EGLNativePixmapType" = "uintptr", // khronos_uintptr_t
+    "EGLNativeWindowType" = "uintptr",
+}
+
+rename = {
+    // ensure no clashes with builtin 'enum' keyword when removing prefix
+    "EGLenum" = "Enum",
+    "EGLBoolean" = "b32",
+    // get rid of khronos_utime_nanoseconds_t alias, time.Time stores nanos as i64 instead of u64,
+    // therefor overflowing after "only" 292 years, seems fine.
+    // NOTE: needs import in imports.inc
+    "EGLTime" = "time.Time",
+    // TODO: replace EGLenum with u32, and insert specific enum types
+    
+    // makes GetProcAddress return a rawptr, get rid of this type below
+    "__eglMustCastToProperFunctionPointerType" = "rawptr",
+}
+
+procedure_type_overrides = {
+    "eglChooseConfig.configs" = "[^]",
+    "eglChooseConfig.attrib_list" = "[^]",
+    "eglCreateContext.attrib_list" = "[^]",
+    "eglCreatePbufferSurface.attrib_list" = "[^]",
+    "eglCreatePixmapSurface.attrib_list" = "[^]",
+    "eglCreateWindowSurface.attrib_list" = "[^]",
+    "eglGetConfigs.configs" = "[^]",
+    "eglCreatePbufferFromClientBuffer.attrib_list" = "[^]",
+    "eglCreateSync.attrib_list" = "[^]",
+    "eglCreateImage.attrib_list" = "[^]",
+    "eglGetPlatformDisplay.attrib_list" = "[^]",
+    "eglGetPlatformDisplay.attrib_list" = "[^]",
+    "eglCreatePlatformWindowSurface.attrib_list" = "[^]",
+    "eglCreatePlatformPixmapSurface.attrib_list" = "[^]",
+}
+
+remove = [
+    // respectively 1 and 0, whereas EGLBoolean is replaced with b32
+    "EGL_TRUE",
+    "EGL_FALSE",
+    // ensure we don't get a b32 :: u32 declaration due to renaming
+    "EGLBoolean",
+    "EGLTime",
+    "EGLint",
+
+    "__egl_h_",
+
+    // loader stuff, function pointer types seem unneeded as type_of(egl.GetError)
+    // seems more enjoyable to write than egl.PFNEGLGETERRORPROC.
+    "__eglMustCastToProperFunctionPointerType",
+    "PFNEGLCHOOSECONFIGPROC",
+    "PFNEGLCOPYBUFFERSPROC",
+    "PFNEGLCREATECONTEXTPROC",
+    "PFNEGLCREATEPBUFFERSURFACEPROC",
+    "PFNEGLCREATEPIXMAPSURFACEPROC",
+    "PFNEGLCREATEWINDOWSURFACEPROC",
+    "PFNEGLDESTROYCONTEXTPROC",
+    "PFNEGLDESTROYSURFACEPROC",
+    "PFNEGLGETCONFIGATTRIBPROC",
+    "PFNEGLGETCONFIGSPROC",
+    "PFNEGLGETCURRENTDISPLAYPROC",
+    "PFNEGLGETCURRENTSURFACEPROC",
+    "PFNEGLGETDISPLAYPROC",
+    "PFNEGLGETERRORPROC",
+    "PFNEGLGETPROCADDRESSPROC",
+    "PFNEGLINITIALIZEPROC",
+    "PFNEGLMAKECURRENTPROC",
+    "PFNEGLQUERYCONTEXTPROC",
+    "PFNEGLQUERYSTRINGPROC",
+    "PFNEGLQUERYSURFACEPROC",
+    "PFNEGLSWAPBUFFERSPROC",
+    "PFNEGLTERMINATEPROC",
+    "PFNEGLWAITGLPROC",
+    "PFNEGLWAITNATIVEPROC",
+    "PFNEGLBINDTEXIMAGEPROC",
+    "PFNEGLRELEASETEXIMAGEPROC",
+    "PFNEGLSURFACEATTRIBPROC",
+    "PFNEGLSWAPINTERVALPROC",
+    "PFNEGLBINDAPIPROC",
+    "PFNEGLQUERYAPIPROC",
+    "PFNEGLCREATEPBUFFERFROMCLIENTBUFFERPROC",
+    "PFNEGLRELEASETHREADPROC",
+    "PFNEGLWAITCLIENTPROC",
+    "PFNEGLGETCURRENTCONTEXTPROC",
+    "PFNEGLCREATESYNCPROC",
+    "PFNEGLDESTROYSYNCPROC",
+    "PFNEGLCLIENTWAITSYNCPROC",
+    "PFNEGLGETSYNCATTRIBPROC",
+    "PFNEGLCREATEIMAGEPROC",
+    "PFNEGLDESTROYIMAGEPROC",
+    "PFNEGLGETPLATFORMDISPLAYPROC",
+    "PFNEGLCREATEPLATFORMWINDOWSURFACEPROC",
+    "PFNEGLCREATEPLATFORMPIXMAPSURFACEPROC",
+    "PFNEGLWAITSYNCPROC",
+]
