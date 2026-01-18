@@ -1,5 +1,5 @@
 inputs = [
-    "include"
+    "include",
 ]
 
 // output to root of repo
@@ -25,6 +25,8 @@ type_overrides = {
     "EGLNativePixmapType" = "uintptr", // khronos_uintptr_t
     "EGLNativeWindowType" = "uintptr",
 }
+
+procedures_at_end = true
 
 rename = {
     // ensure no clashes with builtin 'enum' keyword when removing prefix
@@ -55,6 +57,11 @@ procedure_type_overrides = {
     "eglGetPlatformDisplay.attrib_list" = "[^]",
     "eglCreatePlatformWindowSurface.attrib_list" = "[^]",
     "eglCreatePlatformPixmapSurface.attrib_list" = "[^]",
+
+    "eglBindAPI.api" = "API",
+    "eglGetPlatformDisplay.platform" = "i32",
+    "eglCreateSync.type" = "SyncType",
+    "eglCreateImage.target" = "ImageTarget",
 }
 
 remove = [
@@ -86,6 +93,13 @@ remove = [
     "EGL_CONTEXT_LOST",
     // redefine return type ourselves
     "eglGetError",
+
+    // api constants, replace with enum
+    "EGL_OPENGL_API",
+    "EGL_OPENGL_ES_API",
+    "EGL_OPENVG_API",
+    // redefine return type ourselves
+    "eglQueryAPI",
 
     // loader stuff, function pointer types seem unneeded as type_of(egl.GetError)
     // seems more enjoyable to write than egl.PFNEGLGETERRORPROC.
@@ -135,3 +149,5 @@ remove = [
     "PFNEGLCREATEPLATFORMPIXMAPSURFACEPROC",
     "PFNEGLWAITSYNCPROC",
 ]
+
+// vim:ft=json5
