@@ -1,37 +1,19 @@
-ifeq ($(OS), Windows_NT)
-	# TODO: change program name
-	PROG = <program>.exe
-else
-	PROG = <program>
-endif
-
-SRC = src
-TESTS = tests
+SRC = .
 COLLECTIONS = -collection:src=$(SRC) -collection:lib=lib
 
 CC = odin
 BUILD_DIR = build
-CFLAGS = -out:$(BUILD_DIR)/$(PROG) -strict-style -vet-semicolon -vet-cast -vet-using-param $(COLLECTIONS)
+CFLAGS = -out:$(BUILD_DIR)/$(PROG) -strict-style -vet-semicolon -vet-unused -vet-cast -vet-using-param -no-entry-point $(COLLECTIONS)
 
-all: release
+BINDGEN ?= ./bindgen
+.DEFAULT_GOAL := __no_default
 
-release: CFLAGS += -vet-unused -o:speed -microarch:native
-release: $(PROG)
-
-debug: CFLAGS += -debug -o:none
-debug: $(PROG)
-
-test: CFLAGS += -define:ODIN_TEST_LOG_LEVEL=warning -define:ODIN_TEST_FANCY=false -define:ODIN_TEST_SHORT_LOGS=true -debug -keep-executable
-test:
-	@mkdir -p $(BUILD_DIR)
-	$(CC) test $(TESTS) $(CFLAGS)
-
-$(PROG):
-	@mkdir -p $(BUILD_DIR)
-	$(CC) build $(SRC) $(CFLAGS)
-
-run: debug
-	./$(BUILD_DIR)/$(PROG) $(ARGS)
+bindgen:
+	@echo "Using bindgen executable at $(BINDGEN)"
+	$(BINDGEN) bindgen.sjson
+	@echo "Ensure to perform any cleanup of the generated code if necessary"
+	@echo -e "\nBindgen finished, now running syntax check..."
+	$(MAKE) check
 
 check: CFLAGS := $(filter-out -out:$(BUILD_DIR)/$(PROG),$(CFLAGS))
 check:
@@ -40,4 +22,8 @@ check:
 clean:
 	-@rm -r $(BUILD_DIR)
 
-.PHONY: release debug clean run test check
+__no_default:
+	@echo "No default target. Specify one explicitly."
+	@exit 1
+
+.PHONY: bindgen clean check

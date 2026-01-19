@@ -14,6 +14,13 @@ DEFAULT_DISPLAY :: NativeDisplayType(uintptr(0))
 NO_SYNC         :: Sync(uintptr(0))
 NO_IMAGE        :: Image(uintptr(0))
 
+
+// from eglplatform.h (to avoid writing imports.inc to that file too, triggering -vet-unused)
+
+NativeDisplayType :: rawptr
+NativePixmapType  :: rawptr
+NativeWindowType  :: rawptr
+
 // Used by vendor:OpenGL
 gl_set_proc_address :: proc(p: rawptr, name: cstring) {
     (^rawptr)(p)^ = GetProcAddress(name)

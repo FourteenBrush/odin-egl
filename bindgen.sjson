@@ -1,5 +1,5 @@
 inputs = [
-    "include",
+    "include/egl.h",
 ]
 
 clang_include_paths = [

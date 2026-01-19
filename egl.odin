@@ -1,7 +1,5 @@
 package egl
 
-import "core:c"
-
 import "core:time"
 
 when ODIN_OS == .Windows {
