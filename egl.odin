@@ -76,7 +76,6 @@ TEXTURE_RGBA                  :: 0x305E
 TEXTURE_TARGET                :: 0x3081
 VERSION_1_2             :: 1
 
-Enum         :: u32
 ClientBuffer :: distinct rawptr
 
 ALPHA_FORMAT                  :: 0x3088
@@ -203,7 +202,7 @@ foreign lib {
 	SurfaceAttrib                 :: proc(dpy: Display, surface: Surface, attribute: int, value: int) -> b32 ---
 	SwapInterval                  :: proc(dpy: Display, interval: int) -> b32 ---
 	BindAPI                       :: proc(api: API) -> b32 ---
-	CreatePbufferFromClientBuffer :: proc(dpy: Display, buftype: Enum, buffer: ClientBuffer, config: Config, attrib_list: [^]int) -> Surface ---
+	CreatePbufferFromClientBuffer :: proc(dpy: Display, buftype: BufType, buffer: ClientBuffer, config: Config, attrib_list: [^]int) -> Surface ---
 	ReleaseThread                 :: proc() -> b32 ---
 	WaitClient                    :: proc() -> b32 ---
 	GetCurrentContext             :: proc() -> Context ---

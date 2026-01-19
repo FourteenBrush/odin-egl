@@ -143,3 +143,13 @@ ImageTarget :: enum i32 {
 }
 
 // TODO: add KHR procs (eg eglCreateImageKHR) and extensions
+
+BufType :: enum i32 {
+    OPENVG_IMAGE                            = 03096,
+
+    // ANGLE extensions
+    EXT_IOSURFACE_ANGLE                     = 0x3454,
+    EXT_D3D_TEXTURE_ANGLE                   = 0x33A3,
+    // defined in EGL_ANGLE_d3d_share_handle_client_buffer
+    EXT_D3D_TEXTURE_2D_SHARE_HANDLE_ANGLE   = 0x3200,
+}

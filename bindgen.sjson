@@ -33,7 +33,7 @@ rename = {
     "EGLenum" = "Enum",
     "EGLBoolean" = "b32",
     // get rid of khronos_utime_nanoseconds_t alias, time.Time stores nanos as i64 instead of u64,
-    // therefor overflowing after "only" 292 years, seems fine.
+    // therefor overflowing after "only" 292 years, seems acceptable.
     // NOTE: needs import in imports.inc
     "EGLTime" = "time.Time",
     // TODO: replace EGLenum with u32, and insert specific enum types
@@ -62,6 +62,7 @@ procedure_type_overrides = {
     "eglGetPlatformDisplay.platform" = "i32",
     "eglCreateSync.type" = "SyncType",
     "eglCreateImage.target" = "ImageTarget",
+    "eglCreatePbufferFromClientBuffer.buftype" = "BufType",
 }
 
 remove = [
@@ -72,6 +73,7 @@ remove = [
     "EGLBoolean",
     "EGLTime",
     "EGLint",
+    "EGLenum",
 
     "__egl_h_",
 
