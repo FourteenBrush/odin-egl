@@ -28,14 +28,15 @@ type_overrides = {
     "EGLClientBuffer" = "distinct rawptr",
     "EGLSync" = "distinct rawptr",
     "EGLImage" = "distinct rawptr",
-    "EGLNativePixmapType" = "uintptr", // khronos_uintptr_t
-    "EGLNativeWindowType" = "uintptr",
+    "EGLNativePixmapType" = "rawptr", // khronos_uintptr_t
+    "EGLNativeWindowType" = "rawptr",
 }
 
 procedures_at_end = true
 
 rename = {
     // bindgen seems to incorrectly use int if not specified
+    // (khronos_int32_t -> int32_t)
     "EGLint" = "i32",
     // ensure no clashes with builtin 'enum' keyword when removing prefix
     "EGLenum" = "Enum",
@@ -48,6 +49,11 @@ rename = {
     
     // makes GetProcAddress return a rawptr, get rid of this type below
     "__eglMustCastToProperFunctionPointerType" = "rawptr",
+
+    // manually patched up procedures
+
+    "eglChooseConfig" = "_ChooseConfig",
+    "eglGetConfigs" = "_GetConfigs",
 }
 
 procedure_type_overrides = {

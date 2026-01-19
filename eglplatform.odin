@@ -1,5 +1,7 @@
 package egl
 
+import "core:time"
+
 when ODIN_OS == .Windows {
     foreign import lib "libEGL.lib"
 } else when ODIN_OS == .Darwin {
@@ -10,6 +12,6 @@ when ODIN_OS == .Windows {
 
 
 NativeDisplayType :: rawptr
-NativePixmapType  :: uintptr
-NativeWindowType  :: uintptr
+NativePixmapType  :: rawptr
+NativeWindowType  :: rawptr
 

@@ -1,5 +1,7 @@
 package egl
 
+import "core:c"
+
 import "core:time"
 
 when ODIN_OS == .Windows {
@@ -172,7 +174,7 @@ IMAGE_PRESERVED                            :: 0x30D2
 
 @(default_calling_convention="c", link_prefix="egl")
 foreign lib {
-	ChooseConfig                  :: proc(dpy: Display, attrib_list: [^]i32, configs: [^]Config, config_size: i32, num_config: ^i32) -> b32 ---
+	_ChooseConfig                 :: proc(dpy: Display, attrib_list: [^]i32, configs: [^]Config, config_size: i32, num_config: ^i32) -> b32 ---
 	CopyBuffers                   :: proc(dpy: Display, surface: Surface, target: NativePixmapType) -> b32 ---
 	CreateContext                 :: proc(dpy: Display, config: Config, share_context: Context, attrib_list: [^]i32) -> Context ---
 	CreatePbufferSurface          :: proc(dpy: Display, config: Config, attrib_list: [^]i32) -> Surface ---
@@ -181,7 +183,7 @@ foreign lib {
 	DestroyContext                :: proc(dpy: Display, ctx: Context) -> b32 ---
 	DestroySurface                :: proc(dpy: Display, surface: Surface) -> b32 ---
 	GetConfigAttrib               :: proc(dpy: Display, config: Config, attribute: i32, value: ^i32) -> b32 ---
-	GetConfigs                    :: proc(dpy: Display, configs: [^]Config, config_size: i32, num_config: ^i32) -> b32 ---
+	_GetConfigs                   :: proc(dpy: Display, configs: [^]Config, config_size: i32, num_config: ^i32) -> b32 ---
 	GetCurrentDisplay             :: proc() -> Display ---
 	GetCurrentSurface             :: proc(readdraw: i32) -> Surface ---
 	GetDisplay                    :: proc(display_id: NativeDisplayType) -> Display ---

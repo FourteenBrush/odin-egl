@@ -1,13 +1,7 @@
 package egl
 
+import "core:mem"
 #assert(size_of(uintptr) == size_of(rawptr)) /* for Native*Type */
-
-// Used by vendor:OpenGL
-gl_set_proc_address :: proc(p: rawptr, name: cstring) {
-    (^rawptr)(p)^ = GetProcAddress(name)
-}
-
-// FIXME: why is EGLint replaced with int instead of i32 everywhere?
 
 // Handle values from EGL_CAST, somehow ignored by bindgen
 
@@ -19,6 +13,45 @@ UNKNOWN         :: -1
 DEFAULT_DISPLAY :: NativeDisplayType(uintptr(0))
 NO_SYNC         :: Sync(uintptr(0))
 NO_IMAGE        :: Image(uintptr(0))
+
+// Used by vendor:OpenGL
+gl_set_proc_address :: proc(p: rawptr, name: cstring) {
+    (^rawptr)(p)^ = GetProcAddress(name)
+}
+
+// patched up procedures
+
+ChooseConfig :: proc{ChooseConfigStatic, ChooseConfigAlloc}
+
+ChooseConfigStatic :: proc "contextless" (dpy: Display, attrib_list: []i32, configs_out: []Config) -> (nconfigs: int, ok: b32) {
+    n: i32
+    _ChooseConfig(dpy, raw_data(attrib_list), raw_data(configs_out), i32(len(configs_out)), &n) or_return
+    return int(n), true
+}
+
+ChooseConfigAlloc :: proc(dpy: Display, attrib_list: []i32, allocator: mem.Allocator) -> (configs: []Config, ok: b32) {
+    n: i32
+    _ChooseConfig(dpy, raw_data(attrib_list), nil, 0, &n) or_return
+    configs = make([]Config, n, allocator)
+    _ChooseConfig(dpy, raw_data(attrib_list), raw_data(configs), n, &n) or_return
+    return configs[:n], true
+}
+
+GetConfigs :: proc{GetConfigsStatic, GetConfigsAlloc}
+
+GetConfigsStatic :: proc "contextless" (dpy: Display, configs_out: []Config) -> (nconfigs: int, ok: b32) {
+    n: i32
+    _GetConfigs(dpy, raw_data(configs_out), i32(len(configs_out)), &n) or_return
+    return int(n), true
+}
+
+GetConfigsAlloc :: proc(dpy: Display, allocator: mem.Allocator) -> (configs: []Config, ok: b32) {
+    n: i32
+    _GetConfigs(dpy, nil, 0, &n) or_return
+    configs = make([]Config, n, allocator)
+    _GetConfigs(dpy, raw_data(configs), n, &n) or_return
+    return configs[:n], true
+}
 
 // Error returned by `GetError`.
 Error :: enum i32 {
