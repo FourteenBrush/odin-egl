@@ -1,7 +1,5 @@
 package egl
 
-import "core:time"
-
 when ODIN_OS == .Windows {
     foreign import lib "libEGL.lib"
 } else when ODIN_OS == .Darwin {

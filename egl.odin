@@ -1,7 +1,5 @@
 package egl
 
-import "core:c"
-
 import "core:time"
 
 when ODIN_OS == .Windows {
@@ -174,48 +172,48 @@ IMAGE_PRESERVED                            :: 0x30D2
 
 @(default_calling_convention="c", link_prefix="egl")
 foreign lib {
-	ChooseConfig                  :: proc(dpy: Display, attrib_list: [^]int, configs: [^]Config, config_size: int, num_config: ^int) -> b32 ---
+	ChooseConfig                  :: proc(dpy: Display, attrib_list: [^]i32, configs: [^]Config, config_size: i32, num_config: ^i32) -> b32 ---
 	CopyBuffers                   :: proc(dpy: Display, surface: Surface, target: NativePixmapType) -> b32 ---
-	CreateContext                 :: proc(dpy: Display, config: Config, share_context: Context, attrib_list: [^]int) -> Context ---
-	CreatePbufferSurface          :: proc(dpy: Display, config: Config, attrib_list: [^]int) -> Surface ---
-	CreatePixmapSurface           :: proc(dpy: Display, config: Config, pixmap: NativePixmapType, attrib_list: [^]int) -> Surface ---
-	CreateWindowSurface           :: proc(dpy: Display, config: Config, win: NativeWindowType, attrib_list: [^]int) -> Surface ---
+	CreateContext                 :: proc(dpy: Display, config: Config, share_context: Context, attrib_list: [^]i32) -> Context ---
+	CreatePbufferSurface          :: proc(dpy: Display, config: Config, attrib_list: [^]i32) -> Surface ---
+	CreatePixmapSurface           :: proc(dpy: Display, config: Config, pixmap: NativePixmapType, attrib_list: [^]i32) -> Surface ---
+	CreateWindowSurface           :: proc(dpy: Display, config: Config, win: NativeWindowType, attrib_list: [^]i32) -> Surface ---
 	DestroyContext                :: proc(dpy: Display, ctx: Context) -> b32 ---
 	DestroySurface                :: proc(dpy: Display, surface: Surface) -> b32 ---
-	GetConfigAttrib               :: proc(dpy: Display, config: Config, attribute: int, value: ^int) -> b32 ---
-	GetConfigs                    :: proc(dpy: Display, configs: [^]Config, config_size: int, num_config: ^int) -> b32 ---
+	GetConfigAttrib               :: proc(dpy: Display, config: Config, attribute: i32, value: ^i32) -> b32 ---
+	GetConfigs                    :: proc(dpy: Display, configs: [^]Config, config_size: i32, num_config: ^i32) -> b32 ---
 	GetCurrentDisplay             :: proc() -> Display ---
-	GetCurrentSurface             :: proc(readdraw: int) -> Surface ---
+	GetCurrentSurface             :: proc(readdraw: i32) -> Surface ---
 	GetDisplay                    :: proc(display_id: NativeDisplayType) -> Display ---
 	GetProcAddress                :: proc(procname: cstring) -> rawptr ---
-	Initialize                    :: proc(dpy: Display, major: ^int, minor: ^int) -> b32 ---
+	Initialize                    :: proc(dpy: Display, major: ^i32, minor: ^i32) -> b32 ---
 	MakeCurrent                   :: proc(dpy: Display, draw: Surface, read: Surface, ctx: Context) -> b32 ---
-	QueryContext                  :: proc(dpy: Display, ctx: Context, attribute: int, value: ^int) -> b32 ---
-	QueryString                   :: proc(dpy: Display, name: int) -> cstring ---
-	QuerySurface                  :: proc(dpy: Display, surface: Surface, attribute: int, value: ^int) -> b32 ---
+	QueryContext                  :: proc(dpy: Display, ctx: Context, attribute: i32, value: ^i32) -> b32 ---
+	QueryString                   :: proc(dpy: Display, name: i32) -> cstring ---
+	QuerySurface                  :: proc(dpy: Display, surface: Surface, attribute: i32, value: ^i32) -> b32 ---
 	SwapBuffers                   :: proc(dpy: Display, surface: Surface) -> b32 ---
 	Terminate                     :: proc(dpy: Display) -> b32 ---
 	WaitGL                        :: proc() -> b32 ---
-	WaitNative                    :: proc(engine: int) -> b32 ---
-	BindTexImage                  :: proc(dpy: Display, surface: Surface, buffer: int) -> b32 ---
-	ReleaseTexImage               :: proc(dpy: Display, surface: Surface, buffer: int) -> b32 ---
-	SurfaceAttrib                 :: proc(dpy: Display, surface: Surface, attribute: int, value: int) -> b32 ---
-	SwapInterval                  :: proc(dpy: Display, interval: int) -> b32 ---
+	WaitNative                    :: proc(engine: i32) -> b32 ---
+	BindTexImage                  :: proc(dpy: Display, surface: Surface, buffer: i32) -> b32 ---
+	ReleaseTexImage               :: proc(dpy: Display, surface: Surface, buffer: i32) -> b32 ---
+	SurfaceAttrib                 :: proc(dpy: Display, surface: Surface, attribute: i32, value: i32) -> b32 ---
+	SwapInterval                  :: proc(dpy: Display, interval: i32) -> b32 ---
 	BindAPI                       :: proc(api: API) -> b32 ---
-	CreatePbufferFromClientBuffer :: proc(dpy: Display, buftype: BufType, buffer: ClientBuffer, config: Config, attrib_list: [^]int) -> Surface ---
+	CreatePbufferFromClientBuffer :: proc(dpy: Display, buftype: BufType, buffer: ClientBuffer, config: Config, attrib_list: [^]i32) -> Surface ---
 	ReleaseThread                 :: proc() -> b32 ---
 	WaitClient                    :: proc() -> b32 ---
 	GetCurrentContext             :: proc() -> Context ---
 	CreateSync                    :: proc(dpy: Display, type: SyncType, attrib_list: [^]Attrib) -> Sync ---
 	DestroySync                   :: proc(dpy: Display, sync: Sync) -> b32 ---
-	ClientWaitSync                :: proc(dpy: Display, sync: Sync, flags: int, timeout: time.Time) -> int ---
-	GetSyncAttrib                 :: proc(dpy: Display, sync: Sync, attribute: int, value: ^Attrib) -> b32 ---
+	ClientWaitSync                :: proc(dpy: Display, sync: Sync, flags: i32, timeout: time.Time) -> i32 ---
+	GetSyncAttrib                 :: proc(dpy: Display, sync: Sync, attribute: i32, value: ^Attrib) -> b32 ---
 	CreateImage                   :: proc(dpy: Display, ctx: Context, target: ImageTarget, buffer: ClientBuffer, attrib_list: [^]Attrib) -> Image ---
 	DestroyImage                  :: proc(dpy: Display, image: Image) -> b32 ---
 	GetPlatformDisplay            :: proc(platform: i32, native_display: rawptr, attrib_list: [^]Attrib) -> Display ---
 	CreatePlatformWindowSurface   :: proc(dpy: Display, config: Config, native_window: rawptr, attrib_list: [^]Attrib) -> Surface ---
 	CreatePlatformPixmapSurface   :: proc(dpy: Display, config: Config, native_pixmap: rawptr, attrib_list: [^]Attrib) -> Surface ---
-	WaitSync                      :: proc(dpy: Display, sync: Sync, flags: int) -> b32 ---
+	WaitSync                      :: proc(dpy: Display, sync: Sync, flags: i32) -> b32 ---
 }
 
 @(default_calling_convention="c", link_prefix="egl")

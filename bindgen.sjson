@@ -2,6 +2,12 @@ inputs = [
     "include",
 ]
 
+clang_include_paths = [
+    // "include",
+    // "include/EGL/eglplatform.h",
+    // "include/KHR/khrplatform.h",
+]
+
 // output to root of repo
 output_folder = "."
 
@@ -29,6 +35,8 @@ type_overrides = {
 procedures_at_end = true
 
 rename = {
+    // bindgen seems to incorrectly use int if not specified
+    "EGLint" = "i32",
     // ensure no clashes with builtin 'enum' keyword when removing prefix
     "EGLenum" = "Enum",
     "EGLBoolean" = "b32",

@@ -1,5 +1,7 @@
 package egl
 
+#assert(size_of(uintptr) == size_of(rawptr)) /* for Native*Type */
+
 // Used by vendor:OpenGL
 gl_set_proc_address :: proc(p: rawptr, name: cstring) {
     (^rawptr)(p)^ = GetProcAddress(name)
