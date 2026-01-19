@@ -218,3 +218,9 @@ foreign lib {
 	WaitSync                      :: proc(dpy: Display, sync: Sync, flags: int) -> b32 ---
 }
 
+@(default_calling_convention="c", link_prefix="egl")
+foreign lib {
+    GetError :: proc() -> Error ---
+    QueryAPI :: proc() -> API ---
+}
+

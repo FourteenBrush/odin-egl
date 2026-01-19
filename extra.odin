@@ -18,12 +18,6 @@ DEFAULT_DISPLAY :: NativeDisplayType(uintptr(0))
 NO_SYNC    :: 0
 NO_IMAGE   :: 0
 
-@(default_calling_convention="c", link_prefix="egl")
-foreign lib {
-    GetError :: proc() -> Error ---
-    QueryAPI :: proc() -> API ---
-}
-
 // Error returned by `GetError`.
 Error :: enum i32 {
     NONE                = 0x3038,
