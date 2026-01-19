@@ -91,6 +91,10 @@ remove = [
 
     "__egl_h_",
 
+    // patched up stuff
+    "eglGetConfigs",
+    "eglChooseConfig",
+
     // error constants, replaced with enum
     "EGL_SUCCESS",
     "EGL_NOT_INITIALIZED",
