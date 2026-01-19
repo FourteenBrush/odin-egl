@@ -9,14 +9,14 @@ gl_set_proc_address :: proc(p: rawptr, name: cstring) {
 
 // Handle values from EGL_CAST, somehow ignored by bindgen
 
-DONT_CARE  :: -1
-NO_CONTEXT :: 0
-NO_DISPLAY :: 0
-NO_SURFACE :: 0
-UNKNOWN    :: -1
+DONT_CARE       :: -1
+NO_CONTEXT      :: Context(uintptr(0))
+NO_DISPLAY      :: Display(uintptr(0))
+NO_SURFACE      :: Surface(uintptr(0))
+UNKNOWN         :: -1
 DEFAULT_DISPLAY :: NativeDisplayType(uintptr(0))
-NO_SYNC    :: 0
-NO_IMAGE   :: 0
+NO_SYNC         :: Sync(uintptr(0))
+NO_IMAGE        :: Image(uintptr(0))
 
 // Error returned by `GetError`.
 Error :: enum i32 {
