@@ -6,5 +6,6 @@ foreign lib {
 	_ChooseConfig   :: proc(dpy: Display, attrib_list: [^]i32, configs: [^]Config, config_size: i32, num_config: ^i32) -> b32 ---
     @(link_name="eglGetConfigs")
 	_GetConfigs     :: proc(dpy: Display, configs: [^]Config, config_size: i32, num_config: ^i32) -> b32 ---
+    _Initialize     :: proc(dpy: Display, major, minor: ^i32) -> b32 ---
 }
 

@@ -45,15 +45,9 @@ rename = {
     // therefor overflowing after "only" 292 years, seems acceptable.
     // NOTE: needs import in imports.inc
     "EGLTime" = "time.Time",
-    // TODO: replace EGLenum with u32, and insert specific enum types
     
     // makes GetProcAddress return a rawptr, get rid of this type below
     "__eglMustCastToProperFunctionPointerType" = "rawptr",
-
-    // manually patched up procedures
-
-    "eglChooseConfig" = "_ChooseConfig",
-    "eglGetConfigs" = "_GetConfigs",
 }
 
 procedure_type_overrides = {
@@ -94,6 +88,8 @@ remove = [
     // patched up stuff
     "eglGetConfigs",
     "eglChooseConfig",
+    "eglInitialize",
+    "eglInitialize",
 
     // error constants, replaced with enum
     "EGL_SUCCESS",

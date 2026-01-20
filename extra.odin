@@ -28,6 +28,12 @@ gl_set_proc_address :: proc(p: rawptr, name: cstring) {
 
 // patched up procedures
 
+Initialize :: proc "contextless" (dpy: Display) -> (major, minor: int, ok: b32) {
+    major_, minor_: i32
+    _Initialize(dpy, &major_, &minor_) or_return
+    return int(major_), int(minor_), true
+}
+
 ChooseConfig :: proc{ChooseConfigStatic, ChooseConfigAlloc}
 
 ChooseConfigStatic :: proc "contextless" (dpy: Display, attrib_list: []i32, configs_out: []Config) -> (nconfigs: int, ok: b32) {

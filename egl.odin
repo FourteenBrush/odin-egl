@@ -184,7 +184,6 @@ foreign lib {
 	GetCurrentSurface             :: proc(readdraw: i32) -> Surface ---
 	GetDisplay                    :: proc(display_id: NativeDisplayType) -> Display ---
 	GetProcAddress                :: proc(procname: cstring) -> rawptr ---
-	Initialize                    :: proc(dpy: Display, major: ^i32, minor: ^i32) -> b32 ---
 	MakeCurrent                   :: proc(dpy: Display, draw: Surface, read: Surface, ctx: Context) -> b32 ---
 	QueryContext                  :: proc(dpy: Display, ctx: Context, attribute: i32, value: ^i32) -> b32 ---
 	QueryString                   :: proc(dpy: Display, name: i32) -> cstring ---
@@ -222,5 +221,6 @@ foreign lib {
 	_ChooseConfig   :: proc(dpy: Display, attrib_list: [^]i32, configs: [^]Config, config_size: i32, num_config: ^i32) -> b32 ---
     @(link_name="eglGetConfigs")
 	_GetConfigs     :: proc(dpy: Display, configs: [^]Config, config_size: i32, num_config: ^i32) -> b32 ---
+    _Initialize     :: proc(dpy: Display, major, minor: ^i32) -> b32 ---
 }
 
