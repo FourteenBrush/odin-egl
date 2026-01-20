@@ -68,7 +68,7 @@ GetConfigsAlloc :: proc(dpy: Display, allocator: mem.Allocator) -> (configs: []C
 
 // Error returned by `GetError`.
 Error :: enum i32 {
-    NONE                = 0x3038,
+    NONE                = 0x3030,
     NOT_INITIALIZED     = 0x3001,
     BAD_ACCESS          = 0x3002,
     BAD_ALLOC           = 0x3003,
