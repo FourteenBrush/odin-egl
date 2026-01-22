@@ -19,9 +19,9 @@ Enum :: i32
 
 // from eglplatform.h (to avoid writing imports.inc to that file too, triggering -vet-unused)
 
-NativeDisplayType :: rawptr
-NativePixmapType  :: rawptr
-NativeWindowType  :: rawptr
+NativeDisplayType :: distinct rawptr
+NativePixmapType  :: distinct rawptr
+NativeWindowType  :: distinct rawptr
 
 // Used by vendor:OpenGL
 gl_set_proc_address :: proc(p: rawptr, name: cstring) {
