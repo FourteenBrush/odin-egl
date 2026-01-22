@@ -232,7 +232,7 @@ impl_UnbindWaylandDisplayWL                   : PFNEGLUNBINDWAYLANDDISPLAYWLPROC
 impl_QueryWaylandBufferWL                     : PFNEGLQUERYWAYLANDBUFFERWLPROC
 impl_CreateWaylandBufferFromImageWL           : PFNEGLCREATEWAYLANDBUFFERFROMIMAGEWLPROC
 
-load_extension_pointers :: proc "contextless" (loader: type_of(GetProcAddress)) {
+load_extension_pointers :: proc "contextless" (loader: type_of(GetProcAddress) = GetProcAddress) {
     impl_CreateSync64KHR                          = auto_cast loader("eglCreateSync64KHR")
     impl_DebugMessageControlKHR                   = auto_cast loader("eglDebugMessageControlKHR")
     impl_QueryDebugKHR                            = auto_cast loader("eglQueryDebugKHR")
