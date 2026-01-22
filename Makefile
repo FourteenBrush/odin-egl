@@ -11,8 +11,8 @@ BINDGEN ?= ./bindgen
 bindgen:
 	@echo "Using bindgen executable at $(BINDGEN)"
 	$(BINDGEN) bindgen.sjson
-	@echo "Ensure to perform any cleanup of the generated code if necessary"
-	@echo -e "\nBindgen finished, now running syntax check..."
+	@echo -e "\nBindgen finished, ensure to perform any cleanup of the generated code if necessary"
+	@echo -e "Now running syntax check...\n"
 	$(MAKE) check
 
 check: CFLAGS := $(filter-out -out:$(BUILD_DIR)/$(PROG),$(CFLAGS))
