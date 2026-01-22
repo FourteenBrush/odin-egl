@@ -14,6 +14,8 @@ DEFAULT_DISPLAY :: NativeDisplayType(uintptr(0))
 NO_SYNC         :: Sync(uintptr(0))
 NO_IMAGE        :: Image(uintptr(0))
 
+// for places where this hasn't (yet) been replaced with an appropriate enum type
+Enum :: i32
 
 // from eglplatform.h (to avoid writing imports.inc to that file too, triggering -vet-unused)
 
