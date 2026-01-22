@@ -4,8 +4,9 @@ import "core:c"
 
 import "core:time"
 
-// silence explicitly added c import so we have less manual cleanup to do
+// silence explicitly generated things so we have less cleanup to do
 _ :: c
+_ :: lib
 
 /*
     WHEN THIS ANNOTATION IS PRESENT ON AN .odin FILE, THIS FILE IS GENERATED
@@ -866,122 +867,4 @@ WL_create_wayland_buffer_from_image :: 1
 
 wl_buffer                                :: struct {}
 PFNEGLCREATEWAYLANDBUFFERFROMIMAGEWLPROC :: proc "c" (dpy: Display, image: ImageKHR) -> ^wl_buffer
-
-@(default_calling_convention="c", link_prefix="egl")
-foreign lib {
-	CreateSync64KHR                          :: proc(dpy: Display, type: Enum, attrib_list: ^AttribKHR) -> SyncKHR ---
-	DebugMessageControlKHR                   :: proc(callback: DEBUGPROCKHR, attrib_list: ^Attrib) -> i32 ---
-	QueryDebugKHR                            :: proc(attribute: i32, value: ^Attrib) -> b32 ---
-	LabelObjectKHR                           :: proc(display: Display, objectType: Enum, object: ObjectKHR, label: LabelKHR) -> i32 ---
-	QueryDisplayAttribKHR                    :: proc(dpy: Display, name: i32, value: ^Attrib) -> b32 ---
-	CreateSyncKHR                            :: proc(dpy: Display, type: Enum, attrib_list: ^i32) -> SyncKHR ---
-	DestroySyncKHR                           :: proc(dpy: Display, sync: SyncKHR) -> b32 ---
-	ClientWaitSyncKHR                        :: proc(dpy: Display, sync: SyncKHR, flags: i32, timeout: time.Time) -> i32 ---
-	GetSyncAttribKHR                         :: proc(dpy: Display, sync: SyncKHR, attribute: i32, value: ^i32) -> b32 ---
-	CreateImageKHR                           :: proc(dpy: Display, ctx: Context, target: Enum, buffer: ClientBuffer, attrib_list: ^i32) -> ImageKHR ---
-	DestroyImageKHR                          :: proc(dpy: Display, image: ImageKHR) -> b32 ---
-	LockSurfaceKHR                           :: proc(dpy: Display, surface: Surface, attrib_list: ^i32) -> b32 ---
-	UnlockSurfaceKHR                         :: proc(dpy: Display, surface: Surface) -> b32 ---
-	QuerySurface64KHR                        :: proc(dpy: Display, surface: Surface, attribute: i32, value: ^AttribKHR) -> b32 ---
-	SetDamageRegionKHR                       :: proc(dpy: Display, surface: Surface, rects: ^i32, n_rects: i32) -> b32 ---
-	SignalSyncKHR                            :: proc(dpy: Display, sync: SyncKHR, mode: Enum) -> b32 ---
-	CreateStreamKHR                          :: proc(dpy: Display, attrib_list: ^i32) -> StreamKHR ---
-	DestroyStreamKHR                         :: proc(dpy: Display, stream: StreamKHR) -> b32 ---
-	StreamAttribKHR                          :: proc(dpy: Display, stream: StreamKHR, attribute: Enum, value: i32) -> b32 ---
-	QueryStreamKHR                           :: proc(dpy: Display, stream: StreamKHR, attribute: Enum, value: ^i32) -> b32 ---
-	QueryStreamu64KHR                        :: proc(dpy: Display, stream: StreamKHR, attribute: Enum, value: ^u64) -> b32 ---
-	CreateStreamAttribKHR                    :: proc(dpy: Display, attrib_list: ^Attrib) -> StreamKHR ---
-	SetStreamAttribKHR                       :: proc(dpy: Display, stream: StreamKHR, attribute: Enum, value: Attrib) -> b32 ---
-	QueryStreamAttribKHR                     :: proc(dpy: Display, stream: StreamKHR, attribute: Enum, value: ^Attrib) -> b32 ---
-	StreamConsumerAcquireAttribKHR           :: proc(dpy: Display, stream: StreamKHR, attrib_list: ^Attrib) -> b32 ---
-	StreamConsumerReleaseAttribKHR           :: proc(dpy: Display, stream: StreamKHR, attrib_list: ^Attrib) -> b32 ---
-	StreamConsumerGLTextureExternalKHR       :: proc(dpy: Display, stream: StreamKHR) -> b32 ---
-	StreamConsumerAcquireKHR                 :: proc(dpy: Display, stream: StreamKHR) -> b32 ---
-	StreamConsumerReleaseKHR                 :: proc(dpy: Display, stream: StreamKHR) -> b32 ---
-	GetStreamFileDescriptorKHR               :: proc(dpy: Display, stream: StreamKHR) -> NativeFileDescriptorKHR ---
-	CreateStreamFromFileDescriptorKHR        :: proc(dpy: Display, file_descriptor: NativeFileDescriptorKHR) -> StreamKHR ---
-	QueryStreamTimeKHR                       :: proc(dpy: Display, stream: StreamKHR, attribute: Enum, value: ^time.Time) -> b32 ---
-	CreateStreamProducerSurfaceKHR           :: proc(dpy: Display, config: Config, stream: StreamKHR, attrib_list: ^i32) -> Surface ---
-	SwapBuffersWithDamageKHR                 :: proc(dpy: Display, surface: Surface, rects: ^i32, n_rects: i32) -> b32 ---
-	WaitSyncKHR                              :: proc(dpy: Display, sync: SyncKHR, flags: i32) -> i32 ---
-	SetBlobCacheFuncsANDROID                 :: proc(dpy: Display, set: SetBlobFuncANDROID, get: GetBlobFuncANDROID) ---
-	CreateNativeClientBufferANDROID          :: proc(attrib_list: ^i32) -> ClientBuffer ---
-	GetCompositorTimingSupportedANDROID      :: proc(dpy: Display, surface: Surface, name: i32) -> b32 ---
-	GetCompositorTimingANDROID               :: proc(dpy: Display, surface: Surface, numTimestamps: i32, names: ^i32, values: ^i64) -> b32 ---
-	GetNextFrameIdANDROID                    :: proc(dpy: Display, surface: Surface, frameId: ^u64) -> b32 ---
-	GetFrameTimestampSupportedANDROID        :: proc(dpy: Display, surface: Surface, timestamp: i32) -> b32 ---
-	GetFrameTimestampsANDROID                :: proc(dpy: Display, surface: Surface, frameId: u64, numTimestamps: i32, timestamps: ^i32, values: ^i64) -> b32 ---
-	GetNativeClientBufferANDROID             :: proc(buffer: ^AHardwareBuffer) -> ClientBuffer ---
-	DupNativeFenceFDANDROID                  :: proc(dpy: Display, sync: SyncKHR) -> i32 ---
-	PresentationTimeANDROID                  :: proc(dpy: Display, surface: Surface, time: i64) -> b32 ---
-	QuerySurfacePointerANGLE                 :: proc(dpy: Display, surface: Surface, attribute: i32, value: ^rawptr) -> b32 ---
-	GetMscRateANGLE                          :: proc(dpy: Display, surface: Surface, numerator: ^i32, denominator: ^i32) -> b32 ---
-	ClientSignalSyncEXT                      :: proc(dpy: Display, sync: Sync, attrib_list: ^Attrib) -> b32 ---
-	CompositorSetContextListEXT              :: proc(external_ref_ids: ^i32, num_entries: i32) -> b32 ---
-	CompositorSetContextAttributesEXT        :: proc(external_ref_id: i32, context_attributes: ^i32, num_entries: i32) -> b32 ---
-	CompositorSetWindowListEXT               :: proc(external_ref_id: i32, external_win_ids: ^i32, num_entries: i32) -> b32 ---
-	CompositorSetWindowAttributesEXT         :: proc(external_win_id: i32, window_attributes: ^i32, num_entries: i32) -> b32 ---
-	CompositorBindTexWindowEXT               :: proc(external_win_id: i32) -> b32 ---
-	CompositorSetSizeEXT                     :: proc(external_win_id: i32, width: i32, height: i32) -> b32 ---
-	CompositorSwapPolicyEXT                  :: proc(external_win_id: i32, policy: i32) -> b32 ---
-	QueryDeviceAttribEXT                     :: proc(device: DeviceEXT, attribute: i32, value: ^Attrib) -> b32 ---
-	QueryDeviceStringEXT                     :: proc(device: DeviceEXT, name: i32) -> cstring ---
-	QueryDevicesEXT                          :: proc(max_devices: i32, devices: ^DeviceEXT, num_devices: ^i32) -> b32 ---
-	QueryDisplayAttribEXT                    :: proc(dpy: Display, attribute: i32, value: ^Attrib) -> b32 ---
-	QueryDeviceBinaryEXT                     :: proc(device: DeviceEXT, name: i32, max_size: i32, value: rawptr, size: ^i32) -> b32 ---
-	DestroyDisplayEXT                        :: proc(dpy: Display) -> b32 ---
-	QueryDmaBufFormatsEXT                    :: proc(dpy: Display, max_formats: i32, formats: ^i32, num_formats: ^i32) -> b32 ---
-	QueryDmaBufModifiersEXT                  :: proc(dpy: Display, format: i32, max_modifiers: i32, modifiers: ^u64, external_only: ^b32, num_modifiers: ^i32) -> b32 ---
-	GetOutputLayersEXT                       :: proc(dpy: Display, attrib_list: ^Attrib, layers: ^OutputLayerEXT, max_layers: i32, num_layers: ^i32) -> b32 ---
-	GetOutputPortsEXT                        :: proc(dpy: Display, attrib_list: ^Attrib, ports: ^OutputPortEXT, max_ports: i32, num_ports: ^i32) -> b32 ---
-	OutputLayerAttribEXT                     :: proc(dpy: Display, layer: OutputLayerEXT, attribute: i32, value: Attrib) -> b32 ---
-	QueryOutputLayerAttribEXT                :: proc(dpy: Display, layer: OutputLayerEXT, attribute: i32, value: ^Attrib) -> b32 ---
-	QueryOutputLayerStringEXT                :: proc(dpy: Display, layer: OutputLayerEXT, name: i32) -> cstring ---
-	OutputPortAttribEXT                      :: proc(dpy: Display, port: OutputPortEXT, attribute: i32, value: Attrib) -> b32 ---
-	QueryOutputPortAttribEXT                 :: proc(dpy: Display, port: OutputPortEXT, attribute: i32, value: ^Attrib) -> b32 ---
-	QueryOutputPortStringEXT                 :: proc(dpy: Display, port: OutputPortEXT, name: i32) -> cstring ---
-	GetPlatformDisplayEXT                    :: proc(platform: Enum, native_display: rawptr, attrib_list: ^i32) -> Display ---
-	CreatePlatformWindowSurfaceEXT           :: proc(dpy: Display, config: Config, native_window: rawptr, attrib_list: ^i32) -> Surface ---
-	CreatePlatformPixmapSurfaceEXT           :: proc(dpy: Display, config: Config, native_pixmap: rawptr, attrib_list: ^i32) -> Surface ---
-	StreamConsumerOutputEXT                  :: proc(dpy: Display, stream: StreamKHR, layer: OutputLayerEXT) -> b32 ---
-	QuerySupportedCompressionRatesEXT        :: proc(dpy: Display, config: Config, attrib_list: ^Attrib, rates: ^i32, rate_size: i32, num_rates: ^i32) -> b32 ---
-	SwapBuffersWithDamageEXT                 :: proc(dpy: Display, surface: Surface, rects: ^i32, n_rects: i32) -> b32 ---
-	UnsignalSyncEXT                          :: proc(dpy: Display, sync: Sync, attrib_list: ^Attrib) -> b32 ---
-	CreatePixmapSurfaceHI                    :: proc(dpy: Display, config: Config, pixmap: ^ClientPixmapHI) -> Surface ---
-	CreateDRMImageMESA                       :: proc(dpy: Display, attrib_list: ^i32) -> ImageKHR ---
-	ExportDRMImageMESA                       :: proc(dpy: Display, image: ImageKHR, name: ^i32, handle: ^i32, stride: ^i32) -> b32 ---
-	ExportDMABUFImageQueryMESA               :: proc(dpy: Display, image: ImageKHR, fourcc: ^i32, num_planes: ^i32, modifiers: ^u64) -> b32 ---
-	ExportDMABUFImageMESA                    :: proc(dpy: Display, image: ImageKHR, fds: ^i32, strides: ^i32, offsets: ^i32) -> b32 ---
-	GetDisplayDriverConfig                   :: proc(dpy: Display) -> cstring ---
-	GetDisplayDriverName                     :: proc(dpy: Display) -> cstring ---
-	SwapBuffersRegionNOK                     :: proc(dpy: Display, surface: Surface, numRects: i32, rects: ^i32) -> b32 ---
-	SwapBuffersRegion2NOK                    :: proc(dpy: Display, surface: Surface, numRects: i32, rects: ^i32) -> b32 ---
-	QueryNativeDisplayNV                     :: proc(dpy: Display, display_id: ^NativeDisplayType) -> b32 ---
-	QueryNativeWindowNV                      :: proc(dpy: Display, surf: Surface, window: ^NativeWindowType) -> b32 ---
-	QueryNativePixmapNV                      :: proc(dpy: Display, surf: Surface, pixmap: ^NativePixmapType) -> b32 ---
-	PostSubBufferNV                          :: proc(dpy: Display, surface: Surface, x: i32, y: i32, width: i32, height: i32) -> b32 ---
-	StreamImageConsumerConnectNV             :: proc(dpy: Display, stream: StreamKHR, num_modifiers: i32, modifiers: ^u64, attrib_list: ^Attrib) -> b32 ---
-	QueryStreamConsumerEventNV               :: proc(dpy: Display, stream: StreamKHR, timeout: time.Time, event: ^Enum, aux: ^Attrib) -> i32 ---
-	StreamAcquireImageNV                     :: proc(dpy: Display, stream: StreamKHR, pImage: ^Image, sync: Sync) -> b32 ---
-	StreamReleaseImageNV                     :: proc(dpy: Display, stream: StreamKHR, image: Image, sync: Sync) -> b32 ---
-	StreamConsumerGLTextureExternalAttribsNV :: proc(dpy: Display, stream: StreamKHR, attrib_list: ^Attrib) -> b32 ---
-	StreamFlushNV                            :: proc(dpy: Display, stream: StreamKHR) -> b32 ---
-	QueryDisplayAttribNV                     :: proc(dpy: Display, attribute: i32, value: ^Attrib) -> b32 ---
-	SetStreamMetadataNV                      :: proc(dpy: Display, stream: StreamKHR, n: i32, offset: i32, size: i32, data: rawptr) -> b32 ---
-	QueryStreamMetadataNV                    :: proc(dpy: Display, stream: StreamKHR, name: Enum, n: i32, offset: i32, size: i32, data: rawptr) -> b32 ---
-	ResetStreamNV                            :: proc(dpy: Display, stream: StreamKHR) -> b32 ---
-	CreateStreamSyncNV                       :: proc(dpy: Display, stream: StreamKHR, type: Enum, attrib_list: ^i32) -> SyncKHR ---
-	CreateFenceSyncNV                        :: proc(dpy: Display, condition: Enum, attrib_list: ^i32) -> SyncNV ---
-	DestroySyncNV                            :: proc(sync: SyncNV) -> b32 ---
-	FenceNV                                  :: proc(sync: SyncNV) -> b32 ---
-	ClientWaitSyncNV                         :: proc(sync: SyncNV, flags: i32, timeout: time.Time) -> i32 ---
-	SignalSyncNV                             :: proc(sync: SyncNV, mode: Enum) -> b32 ---
-	GetSyncAttribNV                          :: proc(sync: SyncNV, attribute: i32, value: ^i32) -> b32 ---
-	GetSystemTimeFrequencyNV                 :: proc() -> u64 ---
-	GetSystemTimeNV                          :: proc() -> u64 ---
-	BindWaylandDisplayWL                     :: proc(dpy: Display, display: ^wl_display) -> b32 ---
-	UnbindWaylandDisplayWL                   :: proc(dpy: Display, display: ^wl_display) -> b32 ---
-	QueryWaylandBufferWL                     :: proc(dpy: Display, buffer: ^wl_resource, attribute: i32, value: ^i32) -> b32 ---
-	CreateWaylandBufferFromImageWL           :: proc(dpy: Display, image: ImageKHR) -> ^wl_buffer ---
-}
 

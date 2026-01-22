@@ -19,7 +19,7 @@ package_name = "egl"
 
 clang_defines = {
     // generate extension functions
-    "EGL_EGLEXT_PROTOTYPES" = "1",
+    // "EGL_EGLEXT_PROTOTYPES" = "1",
 }
 
 type_overrides = {

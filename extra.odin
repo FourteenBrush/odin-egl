@@ -14,17 +14,18 @@ DEFAULT_DISPLAY :: NativeDisplayType(uintptr(0))
 NO_SYNC         :: Sync(uintptr(0))
 NO_IMAGE        :: Image(uintptr(0))
 
-// for places where this hasn't (yet) been replaced with an appropriate enum type
+// FIXME: for places where this hasn't (yet) been replaced with an appropriate enum type
 Enum :: i32
 
 // from eglplatform.h (to avoid writing imports.inc to that file too, triggering -vet-unused)
+// plus it doesn't define much useful declarations
 
 NativeDisplayType :: distinct rawptr
 NativePixmapType  :: distinct rawptr
 NativeWindowType  :: distinct rawptr
 
-// Used by vendor:OpenGL
-gl_set_proc_address :: proc(p: rawptr, name: cstring) {
+// Used by vendor:OpenGL and to load extension function pointers.
+set_proc_address :: proc(p: rawptr, name: cstring) {
     (^rawptr)(p)^ = GetProcAddress(name)
 }
 

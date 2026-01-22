@@ -1,7 +1,8 @@
 import "core:time"
 
-// silence explicitly added c import so we have less manual cleanup to do
+// silence explicitly generated things so we have less cleanup to do
 _ :: c
+_ :: lib
 
 /*
     WHEN THIS ANNOTATION IS PRESENT ON AN .odin FILE, THIS FILE IS GENERATED
